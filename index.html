@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mbavu vs Majembe 🔥</title>
+<style>
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#111;
+  color:white;
+  text-align:center;
+}
+
+/* Full-screen header with background */
+.header {
+  background: url('https://i.ibb.co/5WxcTCtk/a5d4ec8f-23a8-4f85-a6c8-f727550d383b-2.jpg') no-repeat center center/cover;
+  height: 100vh;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 2px 2px 10px black;
+}
+
+.header h1 {
+  font-size:3rem;
+  margin:0;
+  animation: slideDown 1s ease;
+}
+
+.header h2 {
+  font-size:2rem;
+  margin:10px 0;
+  color:#e50914;
+  animation: slideUp 1s ease;
+}
+
+/* Countdown Timer */
+.countdown {
+  font-size:1.5rem;
+  margin-top:20px;
+  animation: fadeIn 2s ease;
+}
+
+/* Paywall Form */
+.paywall {
+  background: rgba(0,0,0,0.85);
+  border: 2px solid #e50914;
+  border-radius: 10px;
+  padding:30px;
+  margin:30px auto;
+  width: 90%;
+  max-width: 400px;
+  animation: fadeIn 2s ease;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin:8px 0;
+  border-radius:5px;
+  border:none;
+  font-size:16px;
+}
+
+button {
+  padding:12px 25px;
+  background:#e50914;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  font-size:16px;
+  transition:0.3s;
+}
+
+button:hover {
+  background:#ff2a2a;
+}
+
+/* Animations */
+@keyframes slideDown {
+  0% {transform: translateY(-50px); opacity:0;}
+  100% {transform: translateY(0); opacity:1;}
+}
+@keyframes slideUp {
+  0% {transform: translateY(50px); opacity:0;}
+  100% {transform: translateY(0); opacity:1;}
+}
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+/* Responsive */
+@media (max-width:600px){
+  .header h1 {font-size:2rem;}
+  .header h2 {font-size:1.2rem;}
+  .countdown {font-size:1rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- Header / Poster -->
+<div class="header">
+  <h1>🔥 MBAVU VS MAJEMBE 🔥</h1>
+  <h2>The Ultimate Battle!</h2>
+  <div class="countdown" id="countdown"></div>
+</div>
+
+<!-- Paywall Form -->
+<div class="paywall" id="paywall">
+  <h2>Pay KSh 10 to Enter</h2>
+  <p><b>Lipa na Mpesa</b></p>
+  <p>Paybill: <b>247247</b></p>
+  <p>Account: <b>1090186882069</b></p>
+  <p>Enter your details after payment:</p>
+  
+  <input id="name" placeholder="Your Name"><br>
+  <input id="phone" placeholder="Your Phone Number"><br>
+  <input id="code" placeholder="Mpesa Code"><br>
+  
+  <button onclick="sendAccessLink()">Submit Payment</button>
+  <p>After approval, you will get a secret access link via WhatsApp.</p>
+</div>
+
+<script>
+// Countdown Timer
+let fightDate = new Date("March 20, 2026 20:00:00").getTime();
+let countdown = document.getElementById("countdown");
+
+let timer = setInterval(function(){
+  let now = new Date().getTime();
+  let distance = fightDate - now;
+  
+  if(distance < 0){
+    countdown.innerHTML = "The Fight Has Begun!";
+    clearInterval(timer);
+    return;
+  }
+  
+  let days = Math.floor(distance / (1000*60*60*24));
+  let hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+  let minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+  let seconds = Math.floor((distance % (1000*60)) / 1000);
+  
+  countdown.innerHTML = `Fight Starts In: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+}, 1000);
+
+// Send Access Link (WhatsApp)
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxpw6MMaC3KzwnoNNY-b-OEfBWUWZSR0PrLzjNc8-EXLuDtr6_DHPXiTTeDw5zxMtdzPg/exec";
+
+function sendAccessLink(){
+  let name = document.getElementById("name").value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let code = document.getElementById("code").value.trim();
+
+  if(!name || !phone || !code){
+    alert("Please fill all fields!");
+    return;
+  }
+
+  // Send data to Google Sheet
+  fetch(SCRIPT_URL,{
+    method: "POST",
+    body: JSON.stringify({name, phone, code})
+  });
+
+  // Generate personalized access link
+  const accessLink = `https://yourusername.github.io/mbavu-vs-majembe/content.html?access=${code}`;
+  
+  const message = `Hello ${name}!\nYour Mbavu vs Majembe access link: ${accessLink}\nDo not share this link.`;
+  const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+  window.open(whatsappURL,"_blank");
+  alert("WhatsApp message ready. Send it to the user!");
+}
+</script>
+
+</body>
+</html>

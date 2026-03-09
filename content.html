@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mbavu vs Majembe Fight Arena</title>
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: #111;
+    color:white;
+    text-align:center;
+}
+
+header{
+    background: url('https://i.ibb.co/wZYgXc0L/your-image-name.jpg') no-repeat center center/cover;
+    height: 50vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-shadow:2px 2px 10px black;
+}
+
+header h1{
+    font-size:3rem;
+}
+
+.container{
+    padding:30px;
+}
+
+video{
+    width:80%;
+    border: 3px solid #e50914;
+    border-radius:10px;
+    margin-top:20px;
+}
+
+.vote-buttons{
+    margin-top:20px;
+}
+
+.vote-buttons button{
+    padding:15px 25px;
+    margin:10px;
+    background:#e50914;
+    border:none;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    border-radius:6px;
+    transition:0.3s;
+}
+
+.vote-buttons button:hover{
+    background:#ff2a2a;
+}
+
+.share-btn{
+    margin-top:20px;
+    padding:12px 20px;
+    background:green;
+    border:none;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    border-radius:6px;
+}
+
+@media(max-width:600px){
+    header h1{font-size:2rem;}
+    video{width:100%;}
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🔥 MBAVU VS MAJEMBE 🔥</h1>
+</header>
+
+<div class="container">
+<p>Welcome to the fight arena! Watch, vote, and share your favorite fighter!</p>
+
+<!-- Fight Video -->
+<video controls>
+  <source src="https://your-video-link.com/fight.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+
+<!-- Voting Buttons -->
+<div class="vote-buttons">
+<button onclick="vote('Mbavu')">🔥 Vote Mbavu</button>
+<button onclick="vote('Majembe')">⚡ Vote Majembe</button>
+</div>
+
+<!-- Share Button -->
+<button class="share-btn" onclick="shareLink()">Share on WhatsApp</button>
+
+<p id="vote-message" style="margin-top:15px;"></p>
+
+<script>
+// Voting system
+function vote(fighter){
+    document.getElementById('vote-message').innerText = `You voted for ${fighter}!`;
+}
+
+// Share on WhatsApp
+function shareLink(){
+    const url = window.location.href;
+    const message = `Check out Mbavu vs Majembe fight! Watch and vote: ${url}`;
+    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL,"_blank");
+}
+
+// Access control using Google Sheet
+const params = new URLSearchParams(window.location.search);
+const access = params.get("access");
+
+// Your Google Apps Script URL
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwQKwmtBnsXmG28c4TrWYIjvpQUyaMiMFLtilarWPcUrYj0nJMo4k5zr6skDzSdeKIy/exec";
+
+fetch(SHEET_URL)
+.then(response => response.json())
+.then(validCodes => {
+    if(!access || !validCodes.includes(access)){
+        alert("You do not have access! Please pay to view the fight.");
+        window.location.href = "index.html";
+    }
+})
+.catch(err => {
+    console.error("Error fetching access codes:", err);
+    alert("Unable to verify access. Try again later.");
+    window.location.href = "index.html";
+});
+</script>
+
+</body>
+</html>
