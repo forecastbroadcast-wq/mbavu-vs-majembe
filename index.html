@@ -6,13 +6,7 @@
 <title>Mbavu vs Majembe 🔥</title>
 
 <style>
-body {
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:#111;
-  color:white;
-  text-align:center;
-}
+body { margin:0; font-family: Arial, sans-serif; background:#111; color:white; text-align:center; }
 
 /* Full-screen header */
 .header {
@@ -29,21 +23,9 @@ body {
   text-shadow:2px 2px 10px black;
 }
 
-.header h1{
-  font-size:3rem;
-  margin:0;
-}
-
-.header h2{
-  font-size:2rem;
-  margin:10px 0;
-  color:white;
-}
-
-.countdown{
-  font-size:1.5rem;
-  margin-top:20px;
-}
+.header h1{ font-size:3rem; margin:0; }
+.header h2{ font-size:2rem; margin:10px 0; color:white; }
+.countdown{ font-size:1.5rem; margin-top:20px; }
 
 /* Paywall form */
 .paywall{
@@ -56,28 +38,9 @@ body {
   max-width:400px;
 }
 
-input{
-  width:90%;
-  padding:10px;
-  margin:8px 0;
-  border-radius:5px;
-  border:none;
-  font-size:16px;
-}
-
-button{
-  padding:12px 25px;
-  background:#e50914;
-  color:white;
-  border:none;
-  border-radius:5px;
-  cursor:pointer;
-  font-size:16px;
-}
-
-button:hover{
-  background:#ff2a2a;
-}
+input{ width:90%; padding:10px; margin:8px 0; border-radius:5px; border:none; font-size:16px; }
+button{ padding:12px 25px; background:#e50914; color:white; border:none; border-radius:5px; cursor:pointer; font-size:16px; }
+button:hover{ background:#ff2a2a; }
 
 @media(max-width:600px){
 .header h1{font-size:2rem;}
@@ -91,130 +54,78 @@ button:hover{
 
 <!-- Header -->
 <div class="header">
-<h1> MBAVU VS MAJEMBE </h1>
+<h1>MBAVU VS MAJEMBE</h1>
 <h2>Ultimate Showdown! Place KSh 10 on your fighter. If your side wins, you share the total prize collected from all votes!</h2>
 <div class="countdown" id="countdown"></div>
 </div>
 
 <!-- Payment + Vote Form -->
 <div class="paywall">
-
 <h2>Pay KSh 10 to Enter</h2>
-
 <p><b>Lipa na Mpesa</b></p>
 <p>Paybill: <b>247247</b></p>
 <p>Account: <b>1090186882069</b></p>
 
 <p>Enter your details after payment:</p>
-
 <input id="name" placeholder="Your Name"><br>
 <input id="phone" placeholder="Your Phone Number"><br>
 <input id="code" placeholder="Mpesa Code"><br>
 
 <h3>Vote Who Will Win</h3>
-
-<label>
-<input type="radio" name="fighter" value="Mbavu"> 🔥 Mbavu
-</label>
-
-<br><br>
-
-<label>
-<input type="radio" name="fighter" value="Majembe"> ⚡ Majembe
-</label>
-
-<br><br>
+<label><input type="radio" name="fighter" value="Mbavu"> 🔥 Mbavu</label><br><br>
+<label><input type="radio" name="fighter" value="Majembe"> ⚡ Majembe</label><br><br>
 
 <button onclick="sendAccessLink()">Submit Payment & Vote</button>
-
 <p>After approval, you will get a secret access link via WhatsApp.</p>
-
 </div>
 
 <script>
-
 /* Countdown Timer */
 let fightDate = new Date("March 20, 2026 20:00:00").getTime();
 let countdown = document.getElementById("countdown");
-
 let timer = setInterval(function(){
-
-let now = new Date().getTime();
-let distance = fightDate - now;
-
-if(distance < 0){
-countdown.innerHTML = "The Fight Has Begun!";
-clearInterval(timer);
-return;
-}
-
-let days = Math.floor(distance/(1000*60*60*24));
-let hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-let minutes = Math.floor((distance%(1000*60*60))/(1000*60));
-let seconds = Math.floor((distance%(1000*60))/1000);
-
-countdown.innerHTML =
-`Fight Starts In: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-
+  let now = new Date().getTime();
+  let distance = fightDate - now;
+  if(distance < 0){ countdown.innerHTML = "The Fight Has Begun!"; clearInterval(timer); return; }
+  let days = Math.floor(distance/(1000*60*60*24));
+  let hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+  let minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+  let seconds = Math.floor((distance%(1000*60))/1000);
+  countdown.innerHTML = `Fight Starts In: ${days}d ${hours}h ${minutes}m ${seconds}s`;
 },1000);
 
 /* Google Script URL */
-const SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbxZnkwChB66VLJHH3gBvZ3IjxeQZhiT9Bf4t4eH3onn7gEKf2mf9qANi23QEdW6GGk/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZnkwChB66VLJHH3gBvZ3IjxeQZhiT9Bf4t4eH3onn7gEKf2mf9qANi23QEdW6GGk/exec";
 
 /* Submit Form + Vote */
 function sendAccessLink(){
+  let name = document.getElementById("name").value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let code = document.getElementById("code").value.trim();
+  let selected = document.querySelector('input[name="fighter"]:checked');
 
-let name = document.getElementById("name").value.trim();
-let phone = document.getElementById("phone").value.trim();
-let code = document.getElementById("code").value.trim();
-let selected = document.querySelector('input[name="fighter"]:checked');
+  if(!name || !phone || !code){ alert("Please fill all fields!"); return; }
+  if(!selected){ alert("Please vote for a fighter!"); return; }
+  let vote = selected.value;
 
-if(!name || !phone || !code){
-alert("Please fill all fields!");
-return;
+  /* Send to Google Sheet */
+  fetch(SCRIPT_URL,{
+    method:"POST",
+    body:JSON.stringify({ name:name, phone:phone, code:code, vote:vote }),
+    headers: {'Content-Type':'application/json'}
+  })
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
+  /* Generate Access Link */
+  const accessLink = `https://forecastbroadcast-wq.github.io/mbavu-vs-majembe/content.html?access=${code}`;
+  const message = `Hello ${name}!\nYour Mbavu vs Majembe access link: ${accessLink}\nDo not share this link.`;
+  const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  window.open(whatsappURL,"_blank");
+  alert("WhatsApp message ready. Send it to the user!");
 }
-
-if(!selected){
-alert("Please vote for a fighter!");
-return;
-}
-
-let vote = selected.value;
-
-/* Send to Google Sheet */
-fetch(SCRIPT_URL,{
-method:"POST",
-body:JSON.stringify({
-name: name,
-phone: phone,
-code: code,
-vote: vote  // This ensures it goes to column G
-})
-})
-.then(res => res.json())
-.then(data => console.log(data))
-.catch(err => console.error(err));
-
-/* Generate Access Link */
-const accessLink =
-`https://forecastbroadcast-wq.github.io/mbavu-vs-majembe/content.html?access=${code}`;
-
-const message =
-`Hello ${name}!
-Your Mbavu vs Majembe access link: ${accessLink}
-Do not share this link.`;
-
-const whatsappURL =
-`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-window.open(whatsappURL,"_blank");
-
-alert("WhatsApp message ready. Send it to the user!");
-}
-
 </script>
 
 </body>
 </html>
-
