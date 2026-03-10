@@ -118,7 +118,7 @@ function shareLink(){
 const params = new URLSearchParams(window.location.search);
 const access = params.get("access");
 
-// Your Google Apps Script URL for access check
+// Your original Google Apps Script URL for access check
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbxJcS83wesb9SHseU3TpA5wtMH3OJEEhiqMnKs_3Xx-f-LWThm4Kz0ZAidhDJy_pTwH/exec";
 
 fetch(SHEET_URL)
@@ -136,18 +136,25 @@ fetch(SHEET_URL)
 });
 </script>
 
-<!-- --------- CLICK LOGGING SCRIPT --------- -->
+<!-- --------- SINGLE-USE CLICK LOGGING SCRIPT --------- -->
 <script>
 (function() {
   const urlParams = new URLSearchParams(window.location.search);
   const access = urlParams.get('access') || 'unknown';
 
-  // New Web App URL for click counting
   fetch('https://script.google.com/macros/s/AKfycbxZnkwChB66VLJHH3gBvZ3IjxeQZhiT9Bf4t4eH3onn7gEKf2mf9qANi23QEdW6GGk/exec', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ access: access })
-  }).catch(err => console.log('Logging failed', err));
+  })
+  .then(res => res.json())
+  .then(data => {
+      if(data.status !== "success"){
+          alert(data.message);
+          window.location.href = "index.html"; // block if already used
+      }
+  })
+  .catch(err => console.log('Logging failed', err));
 })();
 </script>
 
