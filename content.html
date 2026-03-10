@@ -37,18 +37,25 @@ header h1{
     position: relative;
 }
 
-.container{
-    padding:30px;
+/* Video Section */
+.video-container{
+    width:100%;
     max-width:900px;
     margin:auto;
+    margin-top: -50px; /* overlap header slightly for effect */
+    padding:10px;
 }
 
 video{
     width:100%;
-    max-width:900px;
     border: 3px solid #e50914;
     border-radius:10px;
-    margin-top:20px;
+}
+
+.container{
+    padding:30px;
+    max-width:900px;
+    margin:auto;
 }
 
 .vote-buttons{
@@ -145,14 +152,16 @@ video{
 <h1>🔥 MBAVU VS MAJEMBE 🔥</h1>
 </header>
 
-<div class="container">
-<p>Welcome to the fight arena! Watch, vote, and share your favorite fighter!</p>
-
-<!-- Fight Video -->
+<!-- VIDEO ON TOP -->
+<div class="video-container">
 <video controls>
   <source src="https://youtu.be/Ri74aJKk7VQ?si=MYeqbJ_ChzXh14cy" type="video/mp4">
   Your browser does not support HTML5 video.
 </video>
+</div>
+
+<div class="container">
+<p>Welcome to the fight arena! Watch, vote, and share your favorite fighter!</p>
 
 <!-- Voting Buttons -->
 <div class="vote-buttons">
@@ -166,7 +175,7 @@ video{
 <div class="gallery-section">
     <div class="gallery-title">Mbavu Gallery</div>
     <div class="gallery" id="mbavu-gallery">
-        <img src="https://i.ibb.co/bRJn5Gjv/cec8d3a3-900b-4fd8-ba72-2ffc30000891.jpg"alt="Mbavu 1">
+        <img src="https://i.ibb.co/bRJn5Gjv/cec8d3a3-900b-4fd8-ba72-2ffc30000891.jpg" alt="Mbavu 1">
         <img src="https://i.ibb.co/FkY2fS6P/d29f7d0c-a43a-43f9-a3f6-2c5eae7fe3da.jpg" alt="Mbavu 2">
         <img src="https://i.ibb.co/jvJLQ4gP/982a0dd4-bdc1-4f8e-bb0f-9941b10df00e.jpg" alt="Mbavu 3">
     </div>
@@ -202,10 +211,3 @@ function shareLink(){
 
 </body>
 </html>
-
-
-
-
-
-
-
