@@ -59,7 +59,7 @@ const params = new URLSearchParams(window.location.search);
 const access = params.get('access');
 if(!access){ window.location.href = "index.html"; }
 
-const SHEET_URL = "YOUR_NEW_WEB_APP_URL/exec"; // your web app returning JSON of valid codes
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwfQRP3LA5lJoe6w62fENIhSnHsSR4gUX-ei8D4w0VMRxPPYALQxuDHxcwVBwV3FfA/exec"; // your web app returning JSON of valid codes
 
 fetch(SHEET_URL)
   .then(res => res.json())
@@ -95,3 +95,4 @@ function shareLink(){
 
 </body>
 </html>
+
