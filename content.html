@@ -142,7 +142,8 @@ fetch(SHEET_URL)
   const urlParams = new URLSearchParams(window.location.search);
   const access = urlParams.get('access') || 'unknown';
 
-  fetch('https://script.google.com/macros/s/AKfycbwEZxQS-F50q3ISRNZULsuGwn1Sq4mVgknhxbRX2p6VBS-fviEZtfxKPEfVWDRT7pc/exec', {
+  // New Web App URL for click counting
+  fetch('https://script.google.com/macros/s/AKfycbxZnkwChB66VLJHH3gBvZ3IjxeQZhiT9Bf4t4eH3onn7gEKf2mf9qANi23QEdW6GGk/exec', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ access: access })
