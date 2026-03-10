@@ -28,10 +28,13 @@ header h1{
 
 .container{
     padding:30px;
+    max-width:900px;
+    margin:auto;
 }
 
 video{
-    width:80%;
+    width:100%;
+    max-width:900px;
     border: 3px solid #e50914;
     border-radius:10px;
     margin-top:20px;
@@ -58,19 +61,40 @@ video{
 }
 
 .share-btn{
-    margin-top:20px;
+    position:fixed;
+    bottom:20px;
+    right:20px;
     padding:12px 20px;
     background:green;
     border:none;
     color:white;
     font-size:16px;
     cursor:pointer;
-    border-radius:6px;
+    border-radius:50px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+#vote-message{
+    margin-top:15px;
+    font-size:1.2rem;
+    color:#ffcc00;
+    min-height:1.5em;
+}
+
+/* Voting animation */
+.vote-anim{
+    animation: pop 0.4s ease-out;
+}
+
+@keyframes pop{
+    0% { transform: scale(1); color:#ffcc00; }
+    50% { transform: scale(1.5); color:#fff; }
+    100% { transform: scale(1); color:#ffcc00; }
 }
 
 @media(max-width:600px){
     header h1{font-size:2rem;}
-    video{width:100%;}
+    .vote-buttons button{padding:12px 18px;font-size:16px;}
 }
 </style>
 </head>
@@ -95,15 +119,18 @@ video{
 <button onclick="vote('Majembe')">⚡ Vote Majembe</button>
 </div>
 
-<!-- Share Button -->
-<button class="share-btn" onclick="shareLink()">Share on WhatsApp</button>
+<p id="vote-message"></p>
 
-<p id="vote-message" style="margin-top:15px;"></p>
+<!-- Share Button -->
+<button class="share-btn" onclick="shareLink()">Share</button>
 
 <script>
-// Voting system
+// Voting system with animation
 function vote(fighter){
-    document.getElementById('vote-message').innerText = `You voted for ${fighter}!`;
+    const msg = document.getElementById('vote-message');
+    msg.innerText = `You voted for ${fighter}!`;
+    msg.classList.add('vote-anim');
+    setTimeout(()=>msg.classList.remove('vote-anim'), 400);
 }
 
 // Share on WhatsApp
@@ -113,39 +140,6 @@ function shareLink(){
     const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappURL,"_blank");
 }
-
-// Access control using Google Sheet
-const params = new URLSearchParams(window.location.search);
-const access = params.get("access");
-
-// --------- SINGLE-USE DEVICE LOCK SCRIPT ---------
-(function() {
-  // 1️⃣ Generate/retrieve deviceID
-  let deviceID = localStorage.getItem("deviceID");
-  if(!deviceID){
-      deviceID = Math.random().toString(36).substr(2, 9);
-      localStorage.setItem("deviceID", deviceID);
-  }
-
-  // 2️⃣ Get access code from URL
-  const accessCode = params.get('access') || 'unknown';
-
-  // 3️⃣ Send POST request with deviceID
-  fetch('https://script.google.com/macros/s/AKfycbxZnkwChB66VLJHH3gBvZ3IjxeQZhiT9Bf4t4eH3onn7gEKf2mf9qANi23QEdW6GGk/exec', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ access: accessCode, deviceID: deviceID })
-  })
-  .then(res => res.json())
-  .then(data => {
-      if(data.status !== "success"){
-          alert(data.message);
-          window.location.href = "index.html"; // block if not allowed
-      }
-      // Optionally, you can show your content here only if success
-  })
-  .catch(err => console.log('Access check failed', err));
-})();
 </script>
 
 </body>
