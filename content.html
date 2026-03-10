@@ -174,7 +174,7 @@ header h1{
   </iframe>
 </div>
 
-<div class="container">
+<div class="container" id="main-content" style="display:none;">
 <p>Welcome to the fight arena! Watch, vote, and share your favorite fighter!</p>
 
 <!-- Voting Buttons -->
@@ -204,8 +204,30 @@ header h1{
 
 <!-- Share Button -->
 <button class="share-btn" onclick="shareLink()">Share</button>
+</div>
 
 <script>
+// 🔹 Access control
+const SHEET_URL = "YOUR_NEW_WEB_APP_URL/exec"; // replace with your web app URL
+
+let access = prompt("Enter your access code:");
+
+fetch(SHEET_URL)
+  .then(response => response.json())
+  .then(validCodes => {
+    if(!access || !validCodes.includes(access)){
+        alert("You do not have access! Please pay to view the fight.");
+        window.location.href = "index.html";
+    } else {
+        // show main content
+        document.getElementById('main-content').style.display = "block";
+    }
+  })
+  .catch(err => {
+    console.error("Fetch error:", err);
+    alert("Unable to verify access. Try again later.");
+  });
+
 // Voting system with animation
 function vote(fighter){
     const msg = document.getElementById('vote-message');
