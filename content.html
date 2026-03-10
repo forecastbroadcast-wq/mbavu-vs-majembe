@@ -14,16 +14,26 @@ body{
 }
 
 header{
-    background: url('https://i.ibb.co/wZYgXc0L/your-image-name.jpg') no-repeat center center/cover;
+    background: url('https://i.ibb.co/8D48MGTb/a5d4ec8f-23a8-4f85-a6c8-f727550d383b-2.jpg') no-repeat center center/cover;
     height: 50vh;
     display:flex;
     justify-content:center;
     align-items:center;
     text-shadow:2px 2px 10px black;
+    position: relative;
+}
+
+/* Optional: dark overlay for text readability */
+header::before {
+    content: "";
+    position: absolute;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.4);
 }
 
 header h1{
     font-size:3rem;
+    position: relative; /* above overlay */
 }
 
 .container{
