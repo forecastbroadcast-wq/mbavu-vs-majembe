@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,13 +41,12 @@ body {
   color:#e50914;
 }
 
-/* Countdown */
 .countdown{
   font-size:1.5rem;
   margin-top:20px;
 }
 
-/* Paywall + Vote boxes */
+/* Paywall form */
 .paywall{
   background:rgba(0,0,0,0.85);
   border:2px solid #e50914;
@@ -80,16 +80,6 @@ button:hover{
   background:#ff2a2a;
 }
 
-/* Voting */
-.vote-box{
-  background:#000;
-  border:2px solid #e50914;
-  border-radius:10px;
-  padding:25px;
-  margin:30px auto;
-  max-width:400px;
-}
-
 @media(max-width:600px){
 .header h1{font-size:2rem;}
 .header h2{font-size:1.2rem;}
@@ -107,8 +97,9 @@ button:hover{
 <div class="countdown" id="countdown"></div>
 </div>
 
-<!-- Payment Form -->
+<!-- Payment + Vote Form -->
 <div class="paywall">
+
 <h2>Pay KSh 10 to Enter</h2>
 
 <p><b>Lipa na Mpesa</b></p>
@@ -121,33 +112,23 @@ button:hover{
 <input id="phone" placeholder="Your Phone Number"><br>
 <input id="code" placeholder="Mpesa Code"><br>
 
+<h3>Vote Who Will Win</h3>
+
+<label>
+<input type="radio" name="fighter" value="Mbavu"> 🔥 Mbavu
+</label>
+
+<br><br>
+
+<label>
+<input type="radio" name="fighter" value="Majembe"> ⚡ Majembe
+</label>
+
+<br><br>
+
 <button onclick="sendAccessLink()">Submit Payment</button>
 
 <p>After approval, you will get a secret access link via WhatsApp.</p>
-</div>
-
-<!-- Vote Section -->
-<div class="vote-box">
-
-<h2>🗳 Vote Who Will Win</h2>
-
-<label>
-<input type="radio" name="fighter" value="Mbavu">
-🔥 Mbavu
-</label>
-
-<br><br>
-
-<label>
-<input type="radio" name="fighter" value="Majembe">
-⚡ Majembe
-</label>
-
-<br><br>
-
-<button onclick="submitVote()">Submit Vote</button>
-
-<p id="voteMessage"></p>
 
 </div>
 
@@ -180,10 +161,13 @@ countdown.innerHTML =
 },1000);
 
 
-/* Payment System */
+/* Google Script URL */
 
 const SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbxpw6MMaC3KzwnoNNY-b-OEfBWUWZSR0PrLzjNc8-EXLuDtr6_DHPXiTTeDw5zxMtdzPg/exec";
+
+
+/* Submit Form */
 
 function sendAccessLink(){
 
@@ -191,21 +175,43 @@ let name = document.getElementById("name").value.trim();
 let phone = document.getElementById("phone").value.trim();
 let code = document.getElementById("code").value.trim();
 
+let selected = document.querySelector('input[name="fighter"]:checked');
+
 if(!name || !phone || !code){
 alert("Please fill all fields!");
 return;
 }
 
+if(!selected){
+alert("Please vote for a fighter!");
+return;
+}
+
+let vote = selected.value;
+
+
+/* Send to Google Sheet */
+
 fetch(SCRIPT_URL,{
 method:"POST",
-body:JSON.stringify({name,phone,code})
+body:JSON.stringify({
+name:name,
+phone:phone,
+code:code,
+vote:vote
+})
 });
+
+
+/* Generate Access Link */
 
 const accessLink =
 `https://forecastbroadcast-wq.github.io/mbavu-vs-majembe/content.html?access=${code}`;
 
 const message =
-`Hello ${name}!\nYour Mbavu vs Majembe access link: ${accessLink}\nDo not share this link.`;
+`Hello ${name}!
+Your Mbavu vs Majembe access link: ${accessLink}
+Do not share this link.`;
 
 const whatsappURL =
 `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
@@ -216,41 +222,8 @@ alert("WhatsApp message ready. Send it to the user!");
 
 }
 
-
-/* Voting System */
-
-function submitVote(){
-
-let selected =
-document.querySelector('input[name="fighter"]:checked');
-
-if(!selected){
-alert("Please select a fighter!");
-return;
-}
-
-let vote = selected.value;
-
-/* get access code from URL */
-
-const params = new URLSearchParams(window.location.search);
-const access = params.get("access");
-
-fetch(SCRIPT_URL,{
-method:"POST",
-body:JSON.stringify({
-vote:vote,
-access:access
-})
-})
-.then(res=>res.text())
-.then(data=>{
-document.getElementById("voteMessage").innerHTML="✅ Vote submitted!";
-});
-
-}
-
 </script>
 
 </body>
 </html>
+```
