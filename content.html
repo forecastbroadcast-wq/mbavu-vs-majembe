@@ -37,20 +37,23 @@ header h1{
     position: relative;
 }
 
-/* Video Section */
+/* Video Section as floating square above header */
 .video-container{
-    width:100%;
-    max-width:900px;
+    width:90%;
+    max-width:500px;
     margin:auto;
-    margin-top: -50px; /* overlap header slightly */
+    position: relative;
+    top: -100px; /* float above header */
     padding:10px;
+    border-radius:15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    background: #000; /* black background for video card */
 }
 
 .video-container iframe{
     width:100%;
-    height:500px;
-    border:3px solid #e50914;
-    border-radius:10px;
+    aspect-ratio:1/1; /* make it square */
+    border-radius:15px;
 }
 
 /* Container */
@@ -146,7 +149,12 @@ header h1{
     header h1{font-size:2rem;}
     .vote-buttons button{padding:12px 18px;font-size:16px;}
     .gallery img{width:100px; height:100px;}
-    .video-container iframe{height:250px;}
+    .video-container{
+        top:-80px;
+    }
+    .video-container iframe{
+        aspect-ratio:1/1;
+    }
 }
 </style>
 </head>
@@ -156,7 +164,7 @@ header h1{
 <h1>🔥 MBAVU VS MAJEMBE 🔥</h1>
 </header>
 
-<!-- VIDEO ON TOP - YouTube Embed -->
+<!-- VIDEO ON TOP AS FLOATING SQUARE -->
 <div class="video-container">
   <iframe src="https://www.youtube.com/embed/Ri74aJKk7VQ?rel=0" 
           title="Mbavu vs Majembe Fight"
