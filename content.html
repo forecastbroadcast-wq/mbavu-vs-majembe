@@ -118,43 +118,33 @@ function shareLink(){
 const params = new URLSearchParams(window.location.search);
 const access = params.get("access");
 
-// Your original Google Apps Script URL for access check
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbxJcS83wesb9SHseU3TpA5wtMH3OJEEhiqMnKs_3Xx-f-LWThm4Kz0ZAidhDJy_pTwH/exec";
-
-fetch(SHEET_URL)
-.then(response => response.json())
-.then(validCodes => {
-    if(!access || !validCodes.includes(access)){
-        alert("You do not have access! Please pay to view the fight.");
-        window.location.href = "index.html";
-    }
-})
-.catch(err => {
-    console.error("Error fetching access codes:", err);
-    alert("Unable to verify access. Try again later.");
-    window.location.href = "index.html";
-});
-</script>
-
-<!-- --------- SINGLE-USE CLICK LOGGING SCRIPT --------- -->
-<script>
+// --------- SINGLE-USE DEVICE LOCK SCRIPT ---------
 (function() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const access = urlParams.get('access') || 'unknown';
+  // 1️⃣ Generate/retrieve deviceID
+  let deviceID = localStorage.getItem("deviceID");
+  if(!deviceID){
+      deviceID = Math.random().toString(36).substr(2, 9);
+      localStorage.setItem("deviceID", deviceID);
+  }
 
+  // 2️⃣ Get access code from URL
+  const accessCode = params.get('access') || 'unknown';
+
+  // 3️⃣ Send POST request with deviceID
   fetch('https://script.google.com/macros/s/AKfycbxZnkwChB66VLJHH3gBvZ3IjxeQZhiT9Bf4t4eH3onn7gEKf2mf9qANi23QEdW6GGk/exec', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ access: access })
+    body: JSON.stringify({ access: accessCode, deviceID: deviceID })
   })
   .then(res => res.json())
   .then(data => {
       if(data.status !== "success"){
           alert(data.message);
-          window.location.href = "index.html"; // block if already used
+          window.location.href = "index.html"; // block if not allowed
       }
+      // Optionally, you can show your content here only if success
   })
-  .catch(err => console.log('Logging failed', err));
+  .catch(err => console.log('Access check failed', err));
 })();
 </script>
 
