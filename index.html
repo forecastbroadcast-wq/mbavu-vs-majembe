@@ -8,15 +8,16 @@
 <style>
 body { margin:0; font-family: Arial, sans-serif; background:#111; color:white; text-align:center; }
 
-/* Full-screen header */
+/* Header */
+
 .header {
   background-image: url('https://i.ibb.co/zhZH3wxC/5a4eb419-5568-4a68-a8cb-24ca80846bfb.jpg');
   background-position:center;
   background-repeat:no-repeat;
   background-size:cover;
   width:100%;
+  min-height:400px;
   padding:120px 20px 60px 20px;
-  min-height:500px;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -32,7 +33,23 @@ body { margin:0; font-family: Arial, sans-serif; background:#111; color:white; t
   margin-top:20px;
 }
 
+/* Scroll hint */
+
+.scrollHint{
+  margin-top:15px;
+  font-size:1.1rem;
+  color:#ff3c3c;
+  font-weight:bold;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(8px);}
+}
+
 /* Paywall form */
+
 .paywall{
   background:rgba(0,0,0,0.85);
   border:2px solid #e50914;
@@ -66,16 +83,9 @@ button:hover{
   background:#ff2a2a;
 }
 
-/* Mobile fix for portrait phones */
+/* Mobile fix */
 
 @media(max-width:600px){
-
-.header{
-  background-size:contain;
-  background-position:center top;
-  height:auto;
-  min-height:100vh;
-}
 
 .header h1{font-size:2rem;}
 .header h2{font-size:1.2rem;}
@@ -97,13 +107,13 @@ button:hover{
 <h2>
 Ultimate Showdown! Place KSh 10 on your fighter.
 If your side wins, you share the total prize collected from all votes!
-Scroll Down For Login And Wait To Be verified To Join Us.
 </h2>
 
 <div class="countdown" id="countdown"></div>
 
-</div>
+<p class="scrollHint">⬇ Scroll Down to Login ⬇</p>
 
+</div>
 
 <!-- Payment + Vote Form -->
 
@@ -137,7 +147,6 @@ After approval you will receive the fight link via WhatsApp.
 
 </div>
 
-
 <script>
 
 // Countdown
@@ -155,19 +164,14 @@ let distance = fightDate - now;
 if (distance < 0) {
 
 countdownEl.innerHTML = "The Fight Has Begun!";
-
 clearInterval(timer);
-
 return;
 
 }
 
 let days = Math.floor(distance / (1000*60*60*24));
-
 let hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
-
 let minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
-
 let seconds = Math.floor((distance % (1000*60)) / 1000);
 
 countdownEl.innerHTML =
@@ -176,7 +180,7 @@ countdownEl.innerHTML =
 }, 1000);
 
 
-// Web App URL – THIS IS YOUR WORKING ONE
+// Web App URL
 
 const SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbxLRgLC2zhh8zDkNLdJh4vNS6FgALc7kzgW6sql2kTBrAhzPbOWA0jQlusVet57bFKX_Q/exec";
@@ -184,63 +188,38 @@ const SCRIPT_URL =
 
 function submitVote(){
 
-const name =
-document.getElementById("name").value.trim();
-
-const phone =
-document.getElementById("phone").value.trim();
-
-const code =
-document.getElementById("code").value.trim();
-
-const vote =
-document.getElementById("votePerson").value.trim();
+const name = document.getElementById("name").value.trim();
+const phone = document.getElementById("phone").value.trim();
+const code = document.getElementById("code").value.trim();
+const vote = document.getElementById("votePerson").value.trim();
 
 if(!name || !phone || !code || !vote){
-
 alert("Please fill in ALL fields");
-
 return;
-
 }
 
 if(code.length < 6){
-
 alert("M-Pesa code looks too short");
-
 return;
-
 }
 
 const formData = new URLSearchParams();
 
 formData.append("action","submit");
-
 formData.append("name",name);
-
 formData.append("phone",phone);
-
 formData.append("code",code);
-
 formData.append("vote",vote);
 
 fetch(SCRIPT_URL,{
-
 method:"POST",
-
 body:formData
-
 })
 
 .then(response=>{
-
 console.log("HTTP status:",response.status);
-
-if(!response.ok)
-throw new Error(`HTTP error ${response.status}`);
-
+if(!response.ok) throw new Error(`HTTP error ${response.status}`);
 return response.json();
-
 })
 
 .then(data=>{
@@ -267,27 +246,22 @@ window.open(wa,"_blank");
 
 alert("Done! The access link has been sent via WhatsApp.");
 
-document.getElementById("name").value = "";
-document.getElementById("phone").value = "";
-document.getElementById("code").value = "";
-document.getElementById("votePerson").value = "";
+document.getElementById("name").value="";
+document.getElementById("phone").value="";
+document.getElementById("code").value="";
+document.getElementById("votePerson").value="";
 
 }
 
 else{
-
 alert("Server said: " + (data.message || "Unknown response"));
-
 }
 
 })
 
 .catch(err=>{
-
 console.error("Fetch failed:",err);
-
 alert("Submission error – check console (F12). Details: " + err.message);
-
 });
 
 }
@@ -296,6 +270,3 @@ alert("Submission error – check console (F12). Details: " + err.message);
 
 </body>
 </html>
-
-
-
