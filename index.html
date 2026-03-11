@@ -47,81 +47,109 @@ button:hover{ background:#ff2a2a; }
 
 <!-- Header -->
 <div class="header">
-<h1>MBAVU VS MAJEMBE</h1>
-<h2>Ultimate Showdown! Place KSh 10 on your fighter. If your side wins, you share the total prize collected from all votes!</h2>
-<div class="countdown" id="countdown"></div>
+  <h1>MBAVU VS MAJEMBE</h1>
+  <h2>Ultimate Showdown! Place KSh 10 on your fighter. If your side wins, you share the total prize collected from all votes!</h2>
+  <div class="countdown" id="countdown"></div>
 </div>
 
 <!-- Payment + Vote Form -->
 <div class="paywall">
-<h2>Pay KSh 10 to Enter</h2>
-<p><b>Lipa na Mpesa</b></p>
-<p>Paybill: <b>247247</b></p>
-<p>Account: <b>1090186882069</b></p>
-
-<p>Enter your details after payment:</p>
-<input id="name" placeholder="Your Name"><br>
-<input id="phone" placeholder="Your Phone Number"><br>
-<input id="code" placeholder="Mpesa Code"><br>
-
-<h3>Vote Who Will Win</h3>
-<label><input type="radio" name="fighter" value="Mbavu"> 🔥 Mbavu</label><br><br>
-<label><input type="radio" name="fighter" value="Majembe"> ⚡ Majembe</label><br><br>
-
-<button onclick="sendAccessLink()">Submit Payment & Vote</button>
-<p>After approval, you will get a secret access link via WhatsApp.</p>
+  <h2>Pay KSh 10 to Enter</h2>
+  <p><b>Lipa na Mpesa</b></p>
+  <p>Paybill: <b>247247</b></p>
+  <p>Account: <b>1090186882069</b></p>
+  <p>Enter your details after payment:</p>
+  
+  <input id="name" placeholder="Your Name" required>
+  <input id="phone" placeholder="Phone (2547... no +)" required>
+  <input id="code" placeholder="M-Pesa Code" required>
+  <input id="votePerson" placeholder="Who are you voting for? (Mbavu / Majembe)" required>
+  
+  <br><br>
+  <button onclick="submitVote()">Submit Payment & Vote</button>
+  
+  <p style="font-size:0.9rem; margin-top:20px;">After approval you will receive the fight link via WhatsApp.</p>
 </div>
 
 <script>
-// Countdown Timer
+// Countdown
 let fightDate = new Date("March 20, 2026 20:00:00").getTime();
-let countdown = document.getElementById("countdown");
-let timer = setInterval(function(){
+let countdownEl = document.getElementById("countdown");
+let timer = setInterval(() => {
   let now = new Date().getTime();
   let distance = fightDate - now;
-  if(distance < 0){ countdown.innerHTML = "The Fight Has Begun!"; clearInterval(timer); return; }
-  let days = Math.floor(distance/(1000*60*60*24));
-  let hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-  let minutes = Math.floor((distance%(1000*60*60))/(1000*60));
-  let seconds = Math.floor((distance%(1000*60))/1000);
-  countdown.innerHTML = `Fight Starts In: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-},1000);
+  if (distance < 0) {
+    countdownEl.innerHTML = "The Fight Has Begun!";
+    clearInterval(timer);
+    return;
+  }
+  let days    = Math.floor(distance / (1000*60*60*24));
+  let hours   = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+  let minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+  let seconds = Math.floor((distance % (1000*60)) / 1000);
+  countdownEl.innerHTML = `Fight Starts In: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+}, 1000);
 
-// Google Script URL
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwfQRP3LA5lJoe6w62fENIhSnHsSR4gUX-ei8D4w0VMRxPPYALQxuDHxcwVBwV3FfA/exec";
+// Web App URL – THIS IS YOUR WORKING ONE
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLRgLC2zhh8zDkNLdJh4vNS6FgALc7kzgW6sql2kTBrAhzPbOWA0jQlusVet57bFKX_Q/exec";
 
-// Submit Form + Vote
-function sendAccessLink(){
-  let name = document.getElementById("name").value.trim();
-  let phone = document.getElementById("phone").value.trim();
-  let code = document.getElementById("code").value.trim();
-  let selected = document.querySelector('input[name="fighter"]:checked');
+function submitVote() {
+  const name  = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const code  = document.getElementById("code").value.trim();
+  const vote  = document.getElementById("votePerson").value.trim();
 
-  if(!name || !phone || !code){ alert("Please fill all fields!"); return; }
-  if(!selected){ alert("Please vote for a fighter!"); return; }
-  let vote = selected.value;
+  if (!name || !phone || !code || !vote) {
+    alert("Please fill in ALL fields");
+    return;
+  }
 
-  let deviceID = "WEB-" + Date.now(); // unique for each submission
+  if (code.length < 6) {
+    alert("M-Pesa code looks too short");
+    return;
+  }
 
-  // Send to Google Sheet
-  fetch(SCRIPT_URL,{
-    method:"POST",
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({ name:name, phone:phone, code:code, vote:vote, deviceID:deviceID })
+  const formData = new URLSearchParams();
+  formData.append("action", "submit");
+  formData.append("name", name);
+  formData.append("phone", phone);
+  formData.append("code", code);
+  formData.append("vote", vote);
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",              // ← Add this temporarily for testing (helps bypass some CORS issues in local file)
+    redirect: "follow",
+    body: formData
   })
-  .then(res=>res.json())
-  .then(data=>console.log(data))
-  .catch(err=>console.error(err));
-
-  // Generate Access Link
-  const accessLink = `https://forecastbroadcast-wq.github.io/mbavu-vs-majembe/content.html?access=${code}`;
-  const message = `Hello ${name}!\nYour Mbavu vs Majembe access link: ${accessLink}\nDo not share this link.`;
-  const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-  window.open(whatsappURL,"_blank");
-  alert("WhatsApp message ready. Send it to the user!");
+  .then(response => {
+    console.log("HTTP status:", response.status);           // ← Debug: check in F12 Console
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return response.text();                                 // Get raw text first
+  })
+  .then(text => {
+    console.log("Raw server response:", text);              // ← Very useful debug
+    let data;
+    try { data = JSON.parse(text); } catch(e) { data = {result:"error", message:"Invalid JSON: " + text}; }
+    if (data.result === "success") {
+      const msg = `Hello ${name}!\n\nYour vote for *${vote}* received.\nM-Pesa Code: ${code}\n\nPayment verification in progress.\nYou will get the private link via WhatsApp once approved.`;
+      const wa = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+      window.open(wa, "_blank");
+      alert("Submission sent! Check WhatsApp.");
+      // Clear form
+      document.getElementById("name").value = "";
+      document.getElementById("phone").value = "";
+      document.getElementById("code").value = "";
+      document.getElementById("votePerson").value = "";
+    } else {
+      alert("Server replied: " + (data.message || "No message – check console"));
+    }
+  })
+  .catch(err => {
+    console.error("Fetch error:", err);
+    alert("Submission failed – open F12 > Console and see red messages. Error: " + err.message);
+  });
 }
 </script>
-
 </body>
 </html>
-
