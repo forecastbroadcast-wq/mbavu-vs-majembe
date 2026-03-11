@@ -117,39 +117,38 @@ function submitVote() {
   formData.append("vote", vote);
 
   fetch(SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",              // ← Add this temporarily for testing (helps bypass some CORS issues in local file)
-    redirect: "follow",
-    body: formData
-  })
-  .then(response => {
-    console.log("HTTP status:", response.status);           // ← Debug: check in F12 Console
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    return response.text();                                 // Get raw text first
-  })
-  .then(text => {
-    console.log("Raw server response:", text);              // ← Very useful debug
-    let data;
-    try { data = JSON.parse(text); } catch(e) { data = {result:"error", message:"Invalid JSON: " + text}; }
-    if (data.result === "success") {
-      const msg = `Hello ${name}!\n\nYour vote for *${vote}* received.\nM-Pesa Code: ${code}\n\nPayment verification in progress.\nYou will get the private link via WhatsApp once approved.`;
-      const wa = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-      window.open(wa, "_blank");
-      alert("Submission sent! Check WhatsApp.");
-      // Clear form
-      document.getElementById("name").value = "";
-      document.getElementById("phone").value = "";
-      document.getElementById("code").value = "";
-      document.getElementById("votePerson").value = "";
-    } else {
-      alert("Server replied: " + (data.message || "No message – check console"));
-    }
-  })
-  .catch(err => {
-    console.error("Fetch error:", err);
-    alert("Submission failed – open F12 > Console and see red messages. Error: " + err.message);
-  });
-}
+  method: "POST",
+  // mode: "no-cors",   ← REMOVE or COMMENT OUT this line
+  // redirect: "follow", ← optional, can keep or remove
+  body: formData
+})
+.then(response => {
+  console.log("HTTP status:", response.status);  // should now show 200
+  if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+  return response.json();  // ← change to .json() since we expect JSON
+})
+.then(data => {
+  console.log("Server response:", data);  // debug
+  if (data.result === "success") {
+    const msg = `Hello ${name}!\n\nYour vote for *${vote}* received.\nM-Pesa Code: ${code}\n\nPayment verification in progress.\nYou will get the private link via WhatsApp once approved.`;
+    const wa = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+    window.open(wa, "_blank");
+    alert("Submission successful! Check WhatsApp for the message.");
+    
+    // clear form
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("code").value = "";
+    document.getElementById("votePerson").value = "";
+  } else {
+    alert("Server said: " + (data.message || "Unknown response"));
+  }
+})
+.catch(err => {
+  console.error("Fetch failed:", err);
+  alert("Submission error – check console (F12). Details: " + err.message);
+});
 </script>
 </body>
 </html>
+
