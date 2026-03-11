@@ -129,18 +129,28 @@ function submitVote() {
 })
 .then(data => {
   console.log("Server response:", data);  // debug
-  if (data.result === "success") {
-    const msg = `Hello ${name}!\n\nYour vote for *${vote}* received.\nM-Pesa Code: ${code}\n\nPayment verification in progress.\nYou will get the private link via WhatsApp once approved.`;
-    const wa = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-    window.open(wa, "_blank");
-    alert("Submission successful! Check WhatsApp for the message.");
-    
-    // clear form
-    document.getElementById("name").value = "";
-    document.getElementById("phone").value = "";
-    document.getElementById("code").value = "";
-    document.getElementById("votePerson").value = "";
-  } else {
+ if (data.result === "success") {
+  const accessLink = `https://yourgithubusername.github.io/yoursite/content.html?access=${encodeURIComponent(code)}`;
+  
+  const msg = `Hello ${name}!\n\n` +
+              `Your vote for *${vote}* has been received.\n` +
+              `M-Pesa Code: ${code}\n\n` +
+              `Access the Mbavu vs Majembe fight arena here:\n` +
+              `${accessLink}\n\n` +
+              `Do not share this link. Enjoy the show! 🔥`;
+
+  const wa = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+  window.open(wa, "_blank");
+
+  alert("Done! The access link has been sent via WhatsApp.");
+  
+  // clear form
+  document.getElementById("name").value = "";
+  document.getElementById("phone").value = "";
+  document.getElementById("code").value = "";
+  document.getElementById("votePerson").value = "";
+}
+  else {
     alert("Server said: " + (data.message || "Unknown response"));
   }
 })
@@ -152,5 +162,6 @@ function submitVote() {
 </script>
 </body>
 </html>
+
 
 
