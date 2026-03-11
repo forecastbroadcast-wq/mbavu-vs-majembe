@@ -5,94 +5,109 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mbavu vs Majembe Fight Arena</title>
 <style>
-/* ... all your previous styles ... */
+body { margin:0; font-family: Arial, sans-serif; background:#000; color:#fff; text-align:center; }
+header { padding:20px; background:#111; }
+h1 { margin:0; font-size:2.8rem; text-shadow: 0 0 10px #e50914; }
+.video-container { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%; background:#000; margin:20px 0; }
+.video-container iframe { position:absolute; top:0; left:0; width:100%; height:100%; }
+.container { max-width:900px; margin:0 auto; padding:20px; }
+.vote-buttons button { 
+  font-size:1.4rem; padding:15px 40px; margin:15px; border:none; border-radius:8px; cursor:pointer; 
+  transition: all 0.2s; background:#e50914; color:white;
+}
+.vote-buttons button:hover { transform: scale(1.08); background:#ff2a2a; }
+#vote-message { font-size:1.4rem; min-height:2rem; margin:20px 0; color:#25D366; }
+.gallery-section { margin:40px 0; }
+.gallery-title { font-size:1.8rem; margin:30px 0 15px; color:#e50914; }
+.gallery { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+.gallery img { max-width:280px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.7); }
+.share-btn { font-size:1.3rem; padding:14px 40px; background:#25D366; color:white; border:none; border-radius:8px; margin:30px; cursor:pointer; }
+.vote-anim { animation: pulse 0.4s; }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
 </style>
 </head>
 <body>
 
 <header>
-<h1>🔥 MBAVU VS MAJEMBE 🔥</h1>
+  <h1>🔥 MBAVU VS MAJEMBE 🔥</h1>
 </header>
 
 <div class="video-container">
   <iframe src="https://www.youtube.com/embed/Ri74aJKk7VQ?rel=0" 
-          title="Mbavu vs Majembe Fight"
-          frameborder="0" 
+          title="Mbavu vs Majembe Fight" frameborder="0" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen>
-  </iframe>
+          allowfullscreen></iframe>
 </div>
 
 <div class="container" id="main-content" style="display:none;">
-<p>Welcome to the fight arena! Watch, vote, and share your favorite fighter!</p>
-<!-- Voting Buttons -->
-<div class="vote-buttons">
-<button onclick="vote('Mbavu')">🔥 Vote Mbavu</button>
-<button onclick="vote('Majembe')">⚡ Vote Majembe</button>
-</div>
-<p id="vote-message"></p>
+  <p>Welcome to the fight arena! Watch, vote, and share your favorite fighter!</p>
+  
+  <div class="vote-buttons">
+    <button onclick="vote('Mbavu')">🔥 Vote Mbavu</button>
+    <button onclick="vote('Majembe')">⚡ Vote Majembe</button>
+  </div>
+  
+  <p id="vote-message"></p>
 
-<!-- Galleries -->
-<div class="gallery-section">
-  <div class="gallery-title">Mbavu Gallery</div>
-  <div class="gallery" id="mbavu-gallery">
-    <img src="https://i.ibb.co/bRJn5Gjv/cec8d3a3-900b-4fd8-ba72-2ffc30000891.jpg" alt="Mbavu 1">
-    <img src="https://i.ibb.co/FkY2fS6P/d29f7d0c-a43a-43f9-a3f6-2c5eae7fe3da.jpg" alt="Mbavu 2">
-    <img src="https://i.ibb.co/jvJLQ4gP/982a0dd4-bdc1-4f8e-bb0f-9941b10df00e.jpg" alt="Mbavu 3">
+  <div class="gallery-section">
+    <div class="gallery-title">Mbavu Gallery</div>
+    <div class="gallery">
+      <img src="https://i.ibb.co/bRJn5Gjv/cec8d3a3-900b-4fd8-ba72-2ffc30000891.jpg" alt="Mbavu 1">
+      <img src="https://i.ibb.co/FkY2fS6P/d29f7d0c-a43a-43f9-a3f6-2c5eae7fe3da.jpg" alt="Mbavu 2">
+      <img src="https://i.ibb.co/jvJLQ4gP/982a0dd4-bdc1-4f8e-bb0f-9941b10df00e.jpg" alt="Mbavu 3">
+    </div>
+    
+    <div class="gallery-title">Majembe Gallery</div>
+    <div class="gallery">
+      <img src="https://i.ibb.co/zHsh7HxH/70a6220c-e81d-417d-b049-c0986a2c3faa.jpg" alt="Majembe 1">
+      <img src="https://i.ibb.co/5g52xMvy/f46baafb-9cf2-4cd4-8a53-0ea046612262.jpg" alt="Majembe 2">
+      <img src="https://i.ibb.co/k29hZsZq/89552ced-22a0-4ea8-92f9-eef81837aa4b.jpg" alt="Majembe 3">
+    </div>
   </div>
 
-  <div class="gallery-title">Majembe Gallery</div>
-  <div class="gallery" id="majembe-gallery">
-    <img src="https://i.ibb.co/zHsh7HxH/70a6220c-e81d-417d-b049-c0986a2c3faa.jpg" alt="Majembe 1">
-    <img src="https://i.ibb.co/5g52xMvy/f46baafb-9cf2-4cd4-8a53-0ea046612262.jpg" alt="Majembe 2">
-    <img src="https://i.ibb.co/k29hZsZq/89552ced-22a0-4ea8-92f9-eef81837aa4b.jpg" alt="Majembe 3">
-  </div>
-</div>
-
-<!-- Share Button -->
-<button class="share-btn" onclick="shareLink()">Share</button>
+  <button class="share-btn" onclick="shareLink()">Share Fight Link</button>
 </div>
 
 <script>
-// Get access code from URL
+// Get ?access= code from URL
 const params = new URLSearchParams(window.location.search);
-const access = params.get('access');
-if(!access){ window.location.href = "index.html"; }
+const accessCode = params.get('access');
 
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbwfQRP3LA5lJoe6w62fENIhSnHsSR4gUX-ei8D4w0VMRxPPYALQxuDHxcwVBwV3FfA/exec"; // your web app returning JSON of valid codes
+if (!accessCode) {
+  alert("No access code in URL");
+  window.location.href = "index.html";
+}
 
-fetch(SHEET_URL)
+// Your working script URL
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLRgLC2zhh8zDkNLdJh4vNS6FgALc7kzgW6sql2kTBrAhzPbOWA0jQlusVet57bFKX_Q/exec";
+
+fetch(`${SCRIPT_URL}?action=get_valid_codes`)
   .then(res => res.json())
   .then(validCodes => {
-    if(!validCodes.includes(access)){
-        alert("You do not have access! Please pay to view the fight.");
-        window.location.href = "index.html";
+    if (!Array.isArray(validCodes) || !validCodes.includes(accessCode)) {
+      alert("This code is not approved or does not exist.\nPlease complete payment and wait for approval.");
+      window.location.href = "index.html";
     } else {
-        document.getElementById('main-content').style.display = "block";
+      document.getElementById("main-content").style.display = "block";
     }
   })
-  .catch(err=>{
-    console.error("Fetch error:", err);
-    alert("Unable to verify access. Try again later.");
+  .catch(err => {
+    console.error(err);
+    alert("Cannot check access right now – try again later");
   });
 
-// Voting system
-function vote(fighter){
-    const msg = document.getElementById('vote-message');
-    msg.innerText = `You voted for ${fighter}!`;
-    msg.classList.add('vote-anim');
-    setTimeout(()=>msg.classList.remove('vote-anim'), 400);
+function vote(fighter) {
+  const msg = document.getElementById("vote-message");
+  msg.textContent = `You voted for ${fighter}!`;
+  msg.classList.add("vote-anim");
+  setTimeout(() => msg.classList.remove("vote-anim"), 800);
 }
 
-// Share on WhatsApp
-function shareLink(){
-    const url = window.location.href;
-    const message = `Check out Mbavu vs Majembe fight! Watch and vote: ${url}`;
-    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappURL,"_blank");
+function shareLink() {
+  const url = window.location.href;
+  const text = `Join the 🔥 Mbavu vs Majembe fight! Watch & vote:\n${url}`;
+  window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
 }
 </script>
-
 </body>
 </html>
-
