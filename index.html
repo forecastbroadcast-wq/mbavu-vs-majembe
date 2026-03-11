@@ -14,7 +14,6 @@ body { margin:0; font-family: Arial, sans-serif; background:#111; color:white; t
   background-position:center;
   background-repeat:no-repeat;
   background-size:cover;
-  background-attachment:scroll;
   width:100%;
   height:100vh;
   min-height:500px;
@@ -67,27 +66,30 @@ button:hover{
   background:#ff2a2a;
 }
 
+/* Mobile fix for portrait phones */
+
 @media(max-width:600px){
 
-.header h1{
-font-size:2rem;
+.header{
+  background-size:contain;
+  background-position:center top;
+  height:auto;
+  min-height:100vh;
 }
 
-.header h2{
-font-size:1.2rem;
-}
-
-.countdown{
-font-size:1rem;
-}
+.header h1{font-size:2rem;}
+.header h2{font-size:1.2rem;}
+.countdown{font-size:1rem;}
 
 }
+
 </style>
 </head>
 
 <body>
 
 <!-- Header -->
+
 <div class="header">
 
 <h1>MBAVU VS MAJEMBE</h1>
@@ -100,6 +102,7 @@ If your side wins, you share the total prize collected from all votes!
 <div class="countdown" id="countdown"></div>
 
 </div>
+
 
 <!-- Payment + Vote Form -->
 
@@ -132,6 +135,7 @@ After approval you will receive the fight link via WhatsApp.
 </p>
 
 </div>
+
 
 <script>
 
@@ -263,11 +267,8 @@ window.open(wa,"_blank");
 alert("Done! The access link has been sent via WhatsApp.");
 
 document.getElementById("name").value = "";
-
 document.getElementById("phone").value = "";
-
 document.getElementById("code").value = "";
-
 document.getElementById("votePerson").value = "";
 
 }
