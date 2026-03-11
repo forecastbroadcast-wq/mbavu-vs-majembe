@@ -4,14 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mbavu vs Majembe 🔥 Vote For Your Winner </title>
+
 <style>
 body { margin:0; font-family: Arial, sans-serif; background:#111; color:white; text-align:center; }
+
 /* Full-screen header */
 .header {
   background-image: url('https://i.ibb.co/zhZH3wxC/5a4eb419-5568-4a68-a8cb-24ca80846bfb.jpg');
-  background-position:center center;
+  background-position:center;
   background-repeat:no-repeat;
   background-size:cover;
+  background-attachment:scroll;
+  width:100%;
   height:100vh;
   min-height:500px;
   display:flex;
@@ -20,9 +24,15 @@ body { margin:0; font-family: Arial, sans-serif; background:#111; color:white; t
   align-items:center;
   text-shadow:2px 2px 10px black;
 }
+
 .header h1{ font-size:3rem; margin:0; }
 .header h2{ font-size:2rem; margin:10px 0; color:white; }
-.countdown{ font-size:1.5rem; margin-top:20px; }
+
+.countdown{
+  font-size:1.5rem;
+  margin-top:20px;
+}
+
 /* Paywall form */
 .paywall{
   background:rgba(0,0,0,0.85);
@@ -33,137 +43,254 @@ body { margin:0; font-family: Arial, sans-serif; background:#111; color:white; t
   width:90%;
   max-width:400px;
 }
-input{ width:90%; padding:10px; margin:8px 0; border-radius:5px; border:none; font-size:16px; }
-button{ padding:12px 25px; background:#e50914; color:white; border:none; border-radius:5px; cursor:pointer; font-size:16px; }
-button:hover{ background:#ff2a2a; }
+
+input{
+  width:90%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:5px;
+  border:none;
+  font-size:16px;
+}
+
+button{
+  padding:12px 25px;
+  background:#e50914;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  font-size:16px;
+}
+
+button:hover{
+  background:#ff2a2a;
+}
+
 @media(max-width:600px){
-.header h1{font-size:2rem;}
-.header h2{font-size:1.2rem;}
-.countdown{font-size:1rem;}
+
+.header h1{
+font-size:2rem;
+}
+
+.header h2{
+font-size:1.2rem;
+}
+
+.countdown{
+font-size:1rem;
+}
+
 }
 </style>
 </head>
+
 <body>
 
 <!-- Header -->
 <div class="header">
-  <h1>MBAVU VS MAJEMBE</h1>
-  <h2>Ultimate Showdown! Place KSh 10 on your fighter. If your side wins, you share the total prize collected from all votes!</h2>
-  <div class="countdown" id="countdown"></div>
+
+<h1>MBAVU VS MAJEMBE</h1>
+
+<h2>
+Ultimate Showdown! Place KSh 10 on your fighter.
+If your side wins, you share the total prize collected from all votes!
+</h2>
+
+<div class="countdown" id="countdown"></div>
+
 </div>
 
 <!-- Payment + Vote Form -->
+
 <div class="paywall">
-  <h2>Pay KSh 10 to Enter</h2>
-  <p><b>Lipa na Mpesa</b></p>
-  <p>Paybill: <b>247247</b></p>
-  <p>Account: <b>1090186882069</b></p>
-  <p>Enter your details after payment:</p>
-  
-  <input id="name" placeholder="Your Name" required>
-  <input id="phone" placeholder="Phone (2547... no +)" required>
-  <input id="code" placeholder="M-Pesa Code" required>
-  <input id="votePerson" placeholder="Who are you voting for? (Mbavu / Majembe)" required>
-  
-  <br><br>
-  <button onclick="submitVote()">Submit Payment & Vote</button>
-  
-  <p style="font-size:0.9rem; margin-top:20px;">After approval you will receive the fight link via WhatsApp.</p>
+
+<h2>Pay KSh 10 to Enter</h2>
+
+<p><b>Lipa na Mpesa</b></p>
+
+<p>Paybill: <b>247247</b></p>
+
+<p>Account: <b>1090186882069</b></p>
+
+<p>Enter your details after payment:</p>
+
+<input id="name" placeholder="Your Name" required>
+
+<input id="phone" placeholder="Phone (2547... no +)" required>
+
+<input id="code" placeholder="M-Pesa Code" required>
+
+<input id="votePerson" placeholder="Who are you voting for? (Mbavu / Majembe)" required>
+
+<br><br>
+
+<button onclick="submitVote()">Submit Payment & Vote</button>
+
+<p style="font-size:0.9rem; margin-top:20px;">
+After approval you will receive the fight link via WhatsApp.
+</p>
+
 </div>
 
 <script>
+
 // Countdown
-let fightDate = new Date("March 20, 2026 20:00:00").getTime();
+
+let fightDate = new Date("April 4, 2026 20:00:00").getTime();
+
 let countdownEl = document.getElementById("countdown");
+
 let timer = setInterval(() => {
-  let now = new Date().getTime();
-  let distance = fightDate - now;
-  if (distance < 0) {
-    countdownEl.innerHTML = "The Fight Has Begun!";
-    clearInterval(timer);
-    return;
-  }
-  let days    = Math.floor(distance / (1000*60*60*24));
-  let hours   = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
-  let minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
-  let seconds = Math.floor((distance % (1000*60)) / 1000);
-  countdownEl.innerHTML = `Fight Starts In: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+let now = new Date().getTime();
+
+let distance = fightDate - now;
+
+if (distance < 0) {
+
+countdownEl.innerHTML = "The Fight Has Begun!";
+
+clearInterval(timer);
+
+return;
+
+}
+
+let days = Math.floor(distance / (1000*60*60*24));
+
+let hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+
+let minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+
+let seconds = Math.floor((distance % (1000*60)) / 1000);
+
+countdownEl.innerHTML =
+`Fight Starts In: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+
 }, 1000);
 
+
 // Web App URL – THIS IS YOUR WORKING ONE
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLRgLC2zhh8zDkNLdJh4vNS6FgALc7kzgW6sql2kTBrAhzPbOWA0jQlusVet57bFKX_Q/exec";
 
-function submitVote() {
-  const name  = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const code  = document.getElementById("code").value.trim();
-  const vote  = document.getElementById("votePerson").value.trim();
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbxLRgLC2zhh8zDkNLdJh4vNS6FgALc7kzgW6sql2kTBrAhzPbOWA0jQlusVet57bFKX_Q/exec";
 
-  if (!name || !phone || !code || !vote) {
-    alert("Please fill in ALL fields");
-    return;
-  }
 
-  if (code.length < 6) {
-    alert("M-Pesa code looks too short");
-    return;
-  }
+function submitVote(){
 
-  const formData = new URLSearchParams();
-  formData.append("action", "submit");
-  formData.append("name", name);
-  formData.append("phone", phone);
-  formData.append("code", code);
-  formData.append("vote", vote);
+const name =
+document.getElementById("name").value.trim();
 
-  fetch(SCRIPT_URL, {
-  method: "POST",
-  // mode: "no-cors",   ← REMOVE or COMMENT OUT this line
-  // redirect: "follow", ← optional, can keep or remove
-  body: formData
-})
-.then(response => {
-  console.log("HTTP status:", response.status);  // should now show 200
-  if (!response.ok) throw new Error(`HTTP error ${response.status}`);
-  return response.json();  // ← change to .json() since we expect JSON
-})
-.then(data => {
-  console.log("Server response:", data);  // debug
- if (data.result === "success") {
-  const accessLink = `https://forecastbroadcast-wq.github.io/mbavu-vs-majembe/content.html?access=${encodeURIComponent(code)}`;
-  
-  const msg = `Hello ${name}!\n\n` +
-              `Your vote for *${vote}* has been received.\n` +
-              `M-Pesa Code: ${code}\n\n` +
-              `Access the Mbavu vs Majembe fight arena here:\n` +
-              `${accessLink}\n\n` +
-              `Do not share this link. Enjoy the show! 🔥`;
+const phone =
+document.getElementById("phone").value.trim();
 
-  const wa = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-  window.open(wa, "_blank");
+const code =
+document.getElementById("code").value.trim();
 
-  alert("Done! The access link has been sent via WhatsApp.");
-  
-  // clear form
-  document.getElementById("name").value = "";
-  document.getElementById("phone").value = "";
-  document.getElementById("code").value = "";
-  document.getElementById("votePerson").value = "";
+const vote =
+document.getElementById("votePerson").value.trim();
+
+if(!name || !phone || !code || !vote){
+
+alert("Please fill in ALL fields");
+
+return;
+
 }
-  else {
-    alert("Server said: " + (data.message || "Unknown response"));
-  }
+
+if(code.length < 6){
+
+alert("M-Pesa code looks too short");
+
+return;
+
+}
+
+const formData = new URLSearchParams();
+
+formData.append("action","submit");
+
+formData.append("name",name);
+
+formData.append("phone",phone);
+
+formData.append("code",code);
+
+formData.append("vote",vote);
+
+fetch(SCRIPT_URL,{
+
+method:"POST",
+
+body:formData
+
 })
-.catch(err => {
-  console.error("Fetch failed:", err);
-  alert("Submission error – check console (F12). Details: " + err.message);
+
+.then(response=>{
+
+console.log("HTTP status:",response.status);
+
+if(!response.ok)
+throw new Error(`HTTP error ${response.status}`);
+
+return response.json();
+
+})
+
+.then(data=>{
+
+console.log("Server response:",data);
+
+if(data.result === "success"){
+
+const accessLink =
+`https://forecastbroadcast-wq.github.io/mbavu-vs-majembe/content.html?access=${encodeURIComponent(code)}`;
+
+const msg =
+`Hello ${name}!\n\n` +
+`Your vote for *${vote}* has been received.\n` +
+`M-Pesa Code: ${code}\n\n` +
+`Access the Mbavu vs Majembe fight arena here:\n` +
+`${accessLink}\n\n` +
+`Do not share this link. Enjoy the show! 🔥`;
+
+const wa =
+`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+
+window.open(wa,"_blank");
+
+alert("Done! The access link has been sent via WhatsApp.");
+
+document.getElementById("name").value = "";
+
+document.getElementById("phone").value = "";
+
+document.getElementById("code").value = "";
+
+document.getElementById("votePerson").value = "";
+
+}
+
+else{
+
+alert("Server said: " + (data.message || "Unknown response"));
+
+}
+
+})
+
+.catch(err=>{
+
+console.error("Fetch failed:",err);
+
+alert("Submission error – check console (F12). Details: " + err.message);
+
 });
+
 }
+
 </script>
+
 </body>
 </html>
-
-
-
-
-
