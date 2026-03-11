@@ -99,11 +99,13 @@ function vote(fighter) {
 }
 
 function shareLink() {
-  const url = window.location.href;
-  const text = `Join the 🔥 Mbavu vs Majembe fight! Watch & vote:\n${url}`;
-  window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+  const entryLink = "https://forecastbroadcast-wq.github.io/mbavu-vs-majembe/";  // ← this is your login/main page
+  const message = `Join the 🔥 Mbavu vs Majembe fight! Place your KSh 10 vote and team that wins will have rewards:\n\n${entryLink}\n\nDon't miss it!`;
+  
+  window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, "_blank");
 }
 </script>
 </body>
 </html>
+
 
