@@ -1,118 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mbavu vs Majembe Fight Arena</title>
-<style>
-body { margin:0; font-family: Arial, sans-serif; background:#000; color:#fff; text-align:center; }
-header { padding:20px; background:#111; }
-h1 { margin:0; font-size:2.8rem; text-shadow: 0 0 10px #e50914; }
-.video-container { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%; background:#000; margin:20px 0; }
-.video-container iframe { position:absolute; top:0; left:0; width:100%; height:100%; }
-.container { max-width:900px; margin:0 auto; padding:20px; }
-.vote-buttons button {
-  font-size:1.4rem; padding:15px 40px; margin:15px; border:none; border-radius:8px; cursor:pointer;
-  transition: all 0.2s; background:#e50914; color:white;
-}
-.vote-buttons button:hover { transform: scale(1.08); background:#ff2a2a; }
-#vote-message { font-size:1.4rem; min-height:2rem; margin:20px 0; color:#25D366; }
-.gallery-section { margin:40px 0; }
-.gallery-title { font-size:1.8rem; margin:30px 0 15px; color:#e50914; }
-.gallery { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
-.gallery img { max-width:280px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.7); }
-.share-btn { font-size:1.3rem; padding:14px 40px; background:#25D366; color:white; border:none; border-radius:8px; margin:30px; cursor:pointer; }
-.vote-anim { animation: pulse 0.4s; }
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mbavu vs Majembe Fight Arena</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#000; color:#fff; text-align:center; }
+    header { padding:20px; background:#111; }
+    h1 { margin:0; font-size:2.8rem; text-shadow: 0 0 10px #e50914; }
+    .video-container { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%; background:#000; margin:20px 0; }
+    .video-container iframe { position:absolute; top:0; left:0; width:100%; height:100%; }
+    .container { max-width:900px; margin:0 auto; padding:20px; }
+    .vote-buttons button {
+      font-size:1.4rem; padding:15px 40px; margin:15px; border:none; border-radius:8px; cursor:pointer;
+      transition: all 0.2s; background:#e50914; color:white;
+    }
+    .vote-buttons button:hover { transform: scale(1.08); background:#ff2a2a; }
+    #vote-message { font-size:1.4rem; min-height:2rem; margin:20px 0; color:#25D366; }
+    .gallery-section { margin:40px 0; }
+    .gallery-title { font-size:1.8rem; margin:30px 0 15px; color:#e50914; }
+    .gallery { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+    .gallery img { max-width:280px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.7); }
+    .share-btn { font-size:1.3rem; padding:14px 40px; background:#25D366; color:white; border:none; border-radius:8px; margin:30px; cursor:pointer; }
+    .vote-anim { animation: pulse 0.4s; }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+  </style>
 </head>
 <body>
-<header>
-  <h1>🔥 MBAVU VS MAJEMBE COMING THIS APRIL 4 🔥</h1>
-</header>
-<div class="video-container">
-  <iframe src="https://www.youtube.com/embed/Ri74aJKk7VQ?rel=0"
-          title="Mbavu vs Majembe Fight" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
-</div>
-<div class="container" id="main-content" style="display:none;">
-  <p>Date: Saturday, April 4, 2026
-Location: Nairobi, Kenya (venue details coming soon – likely KICC or Kasarani)
-This is more than a fight — it's a cultural moment that has the whole country buzzing.
-Mbavu Destroyer vs Majembe: two heavy hitters, one ring, one winner takes it all.
-The stakes are massive — the winner is expected to walk away with at least KSh 1 million, with the prize pool growing from sponsorships and massive public support.
-This is Kenyan boxing history in the making — raw energy, pure adrenaline, and a spectacle you don’t want to miss.</p>
+  <header>
+    <h1>🔥 MBAVU VS MAJEMBE COMING THIS APRIL 4 🔥</h1>
+  </header>
 
-  <!-- News & References Section -->
-  <div style="max-width: 800px; margin: 40px auto; padding: 25px; background: rgba(20,20,20,0.8); border-radius: 12px; border: 1px solid #333; color: #eee; text-align: left;">
-    <h3 style="color: #ffcc00; margin-top: 10px; text-align: center;">News & References</h3>
-    <ul style="line-height: 1.8; list-style-type: disc; padding-left: 25px;">
-      <li>Obinna TV Studios official announcement: <a href="https://obinnatvstudios.com/the-epic-showdown-majembe-vs-mbavu-destroyer-april-4-2026" target="_blank" style="color: #4da6ff;">obinnatvstudios.com</a></li>
-      <li>Mpasho coverage on the fighters and April 4 date: <a href="https://www.mpasho.co.ke/entertainment/2026-03-04-how-majembe-plans-to-mentor-youth-after-april-4th-match" target="_blank" style="color: #4da6ff;">mpasho.co.ke</a></li>
-      <li>Fundraising and Kasarani venue details: <a href="https://www.facebook.com/kenyanewsflash/videos/live-fundraising-for-majembe-vs-mbavu-destoryer-live-boxing-at-kasarani-442026-b/1675350107161174" target="_blank" style="color: #4da6ff;">Facebook Live Fundraising</a></li>
-      <li>Prize and event hype coverage: <a href="https://www.instagram.com/p/DUSeH6_jMw5/" target="_blank" style="color: #4da6ff;">Instagram (Oga Obinna-related post)</a></li>
-      <li>Additional context on the buildup: <a href="https://streamlinefeed.co.ke/news/mbavu-destroyer-gets-professional-boxing-training-before-majembe-fight" target="_blank" style="color: #4da6ff;">streamlinefeed.co.ke</a></li>
-    </ul>
-    <p style="font-size: 0.9rem; color: #aaa; margin-top: 20px; text-align: center;">
-      Sources last checked March 2026. Links open in new tab.
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/Ri74aJKk7VQ?rel=0"
+            title="Mbavu vs Majembe Fight" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+  </div>
+
+  <div class="container" id="main-content" style="display:none;">
+    <p>
+      Date: Saturday, April 4, 2026<br>
+      Location: Nairobi, Kenya (venue details coming soon – likely KICC or Kasarani)<br><br>
+      This is more than a fight — it's a cultural moment that has the whole country buzzing.<br>
+      Mbavu Destroyer vs Majembe: two heavy hitters, one ring, one winner takes it all.<br>
+      The stakes are massive — the winner is expected to walk away with at least KSh 1 million, with the prize pool growing from sponsorships and massive public support.<br>
+      This is Kenyan boxing history in the making — raw energy, pure adrenaline, and a spectacle you don’t want to miss.
     </p>
+
+    <!-- News & References Section -->
+    <div style="max-width: 800px; margin: 40px auto; padding: 25px; background: rgba(20,20,20,0.8); border-radius: 12px; border: 1px solid #333; color: #eee; text-align: left;">
+      <h3 style="color: #ffcc00; margin-top: 10px; text-align: center;">News & References</h3>
+      <ul style="line-height: 1.8; list-style-type: disc; padding-left: 25px;">
+        <li>Obinna TV Studios official announcement: <a href="https://obinnatvstudios.com/the-epic-showdown-majembe-vs-mbavu-destroyer-april-4-2026" target="_blank" style="color: #4da6ff;">obinnatvstudios.com</a></li>
+        <li>Mpasho coverage on the fighters and April 4 date: <a href="https://www.mpasho.co.ke/entertainment/2026-03-04-how-majembe-plans-to-mentor-youth-after-april-4th-match" target="_blank" style="color: #4da6ff;">mpasho.co.ke</a></li>
+        <li>Fundraising and Kasarani venue details: <a href="https://www.facebook.com/kenyanewsflash/videos/live-fundraising-for-majembe-vs-mbavu-destoryer-live-boxing-at-kasarani-442026-b/1675350107161174" target="_blank" style="color: #4da6ff;">Facebook Live Fundraising</a></li>
+        <li>Prize and event hype coverage: <a href="https://www.instagram.com/p/DUSeH6_jMw5/" target="_blank" style="color: #4da6ff;">Instagram (Oga Obinna-related post)</a></li>
+        <li>Additional context on the buildup: <a href="https://streamlinefeed.co.ke/news/mbavu-destroyer-gets-professional-boxing-training-before-majembe-fight" target="_blank" style="color: #4da6ff;">streamlinefeed.co.ke</a></li>
+      </ul>
+      <p style="font-size: 0.9rem; color: #aaa; margin-top: 20px; text-align: center;">
+        Sources last checked March 2026. Links open in new tab.
+      </p>
+    </div>
+
+    <p id="vote-message"></p>
+
+    <div class="gallery-section">
+      <div class="gallery-title">Mbavu Gallery</div>
+      <div class="gallery">
+        <img src="https://i.ibb.co/bRJn5Gjv/cec8d3a3-900b-4fd8-ba72-2ffc30000891.jpg" alt="Mbavu 1">
+        <img src="https://i.ibb.co/FkY2fS6P/d29f7d0c-a43a-43f9-a3f6-2c5eae7fe3da.jpg" alt="Mbavu 2">
+        <img src="https://i.ibb.co/jvJLQ4gP/982a0dd4-bdc1-4f8e-bb0f-9941b10df00e.jpg" alt="Mbavu 3">
+      </div>
+    
+      <div class="gallery-title">Majembe Gallery</div>
+      <div class="gallery">
+        <img src="https://i.ibb.co/zHsh7HxH/70a6220c-e81d-417d-b049-c0986a2c3faa.jpg" alt="Majembe 1">
+        <img src="https://i.ibb.co/5g52xMvy/f46baafb-9cf2-4cd4-8a53-0ea046612262.jpg" alt="Majembe 2">
+        <img src="https://i.ibb.co/k29hZsZq/89552ced-22a0-4ea8-92f9-eef81837aa4b.jpg" alt="Majembe 3">
+      </div>
+    </div>
+
+    <button class="share-btn" onclick="shareLink()">Share Fight Link</button>
   </div>
 
-  <p id="vote-message"></p>
-  <div class="gallery-section">
-    <div class="gallery-title">Mbavu Gallery</div>
-    <div class="gallery">
-      <img src="https://i.ibb.co/bRJn5Gjv/cec8d3a3-900b-4fd8-ba72-2ffc30000891.jpg" alt="Mbavu 1">
-      <img src="https://i.ibb.co/FkY2fS6P/d29f7d0c-a43a-43f9-a3f6-2c5eae7fe3da.jpg" alt="Mbavu 2">
-      <img src="https://i.ibb.co/jvJLQ4gP/982a0dd4-bdc1-4f8e-bb0f-9941b10df00e.jpg" alt="Mbavu 3">
-    </div>
-   
-    <div class="gallery-title">Majembe Gallery</div>
-    <div class="gallery">
-      <img src="https://i.ibb.co/zHsh7HxH/70a6220c-e81d-417d-b049-c0986a2c3faa.jpg" alt="Majembe 1">
-      <img src="https://i.ibb.co/5g52xMvy/f46baafb-9cf2-4cd4-8a53-0ea046612262.jpg" alt="Majembe 2">
-      <img src="https://i.ibb.co/k29hZsZq/89552ced-22a0-4ea8-92f9-eef81837aa4b.jpg" alt="Majembe 3">
-    </div>
-  </div>
-  <button class="share-btn" onclick="shareLink()">Share Fight Link</button>
-</div>
-<script>
-// Get ?access= code from URL
-const params = new URLSearchParams(window.location.search);
-const accessCode = params.get('access');
-if (!accessCode) {
-  alert("No access code in URL");
-  window.location.href = "index.html";
-}
-// Your working script URL
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLRgLC2zhh8zDkNLdJh4vNS6FgALc7kzgW6sql2kTBrAhzPbOWA0jQlusVet57bFKX_Q/exec";
-fetch(`${SCRIPT_URL}?action=get_valid_codes`)
-  .then(res => res.json())
-  .then(validCodes => {
-    if (!Array.isArray(validCodes) || !validCodes.includes(accessCode)) {
-      alert("This code is not approved or does not exist.\nPlease complete payment and wait for approval.");
-      window.location.href = "index.html";
-    } else {
-      document.getElementById("main-content").style.display = "block";
+  <script>
+    // Get access email from URL (?access=...)
+    const params = new URLSearchParams(window.location.search);
+    const accessEmail = params.get('access');
+
+    if (!accessEmail) {
+      alert("No access provided. Please login first.");
+      window.location.href = "login.html";
     }
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Cannot check access right now – try again later");
-  });
-function vote(fighter) {
-  const msg = document.getElementById("vote-message");
-  msg.textContent = `You voted for ${fighter}!`;
-  msg.classList.add("vote-anim");
-  setTimeout(() => msg.classList.remove("vote-anim"), 800);
-}
-function shareLink() {
-  const entryLink = "https://forecastbroadcast-wq.github.io/mbavu-vs-majembe/"; // ← this is your login/main page
-  const message = `Join the 🔥 Mbavu vs Majembe fight! Place your KSh 10 vote and team that wins will have rewards:\n\n${entryLink}\n\nDon't miss it!`;
- 
-  window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, "_blank");
-}
-</script>
+
+    // Your Apps Script URL (updated from your login.html – make sure it's the same everywhere)
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCWnR_nG5OrIdzCCuOjwRSioEFKi9nFVR5DifZqhM70QoN_FK3nFvqnjYaErc50A9E/exec";
+
+    // Check if this email is registered in Sheet2
+    fetch(`${SCRIPT_URL}?action=check_access&email=${encodeURIComponent(accessEmail)}`)
+      .then(res => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
+      .then(data => {
+        if (data.result === "valid") {
+          document.getElementById("main-content").style.display = "block";
+        } else {
+          alert("Access denied – email not found or not approved.\nPlease sign up or login again.");
+          window.location.href = "login.html";
+        }
+      })
+      .catch(err => {
+        console.error("Access check failed:", err);
+        alert("Cannot verify access right now. Try again later or contact support.");
+        // Optional: redirect anyway after error
+        // window.location.href = "login.html";
+      });
+
+    // Simple client-side vote feedback (no backend save yet)
+    function vote(fighter) {
+      const msg = document.getElementById("vote-message");
+      msg.textContent = `You voted for ${fighter}!`;
+      msg.classList.add("vote-anim");
+      setTimeout(() => msg.classList.remove("vote-anim"), 800);
+    }
+
+    function shareLink() {
+      const entryLink = "https://forecastbroadcast-wq.github.io/mbavu-vs-majembe/"; // your main/login page
+      const message = `Join the 🔥 Mbavu vs Majembe fight! Place your KSh 10 vote and team that wins will have rewards:\n\n${entryLink}\n\nDon't miss it April 4, 2026!`;
+      window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, "_blank");
+    }
+  </script>
 </body>
 </html>
