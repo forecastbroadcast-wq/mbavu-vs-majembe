@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mbavu vs Majembe – Login</title>
+  <style>
+    body { margin:0; font-family:Arial,sans-serif; background:#111; color:#fff; text-align:center; padding:20px; }
+    .box { max-width:380px; margin:60px auto; background:rgba(20,20,20,0.85); padding:35px; border-radius:12px; border:2px solid #e50914; }
+    h1 { color:#e50914; margin-bottom:8px; }
+    input { width:100%; padding:12px; margin:12px 0; font-size:16px; border-radius:6px; border:none; }
+    button { background:#e50914; color:white; border:none; padding:14px 40px; font-size:17px; border-radius:6px; cursor:pointer; margin:15px 0; }
+    button:hover { background:#ff3333; }
+    #msg { min-height:50px; font-size:1.15rem; color:#25D366; }
+    .link { color:#4da6ff; cursor:pointer; text-decoration:underline; }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h1>MBAVU VS MAJEMBE</h1>
+  <h2>Login</h2>
+  <p>Use your email to access the fight content</p>
+
+  <input id="email" placeholder="Your Email" required type="email">
+  
+  <button onclick="doLogin()">Login</button>
+
+  <p id="msg"></p>
+
+  <p>No account yet? <span class="link" onclick="location.href='signup.html'">Sign up here</span></p>
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCWnR_nG5OrIdzCCuOjwRSioEFKi9nFVR5DifZqhM70QoN_FK3nFvqnjYaErc50A9E/exec";
+
+async function doLogin() {
+  const email = document.getElementById("email").value.trim();
+  const msgEl = document.getElementById("msg");
+
+  if (!email) {
+    msgEl.style.color = "#ff4444";
+    msgEl.textContent = "Please enter your email";
+    return;
+  }
+
+  msgEl.style.color = "#aaa";
+  msgEl.textContent = "Logging in...";
+
+  const form = new URLSearchParams();
+  form.append("action", "login");
+  form.append("email", email);
+
+  try {
+    const r = await fetch(SCRIPT_URL, { method:"POST", body:form });
+    const data = await r.json();
+
+    if (data.result === "success") {
+      // Redirect to your protected content page using email as simple access key
+      msgEl.style.color = "#25D366";
+      msgEl.textContent = "Login successful! Redirecting...";
+      const safeEmail = encodeURIComponent(data.access);
+      setTimeout(() => {
+        location.href = `content.html?access=${safeEmail}`;
+      }, 1500);
+    } else {
+      msgEl.style.color = "#ff4444";
+      msgEl.textContent = data.message || "Login failed – email not found";
+    }
+  } catch(e) {
+    msgEl.style.color = "#ff4444";
+    msgEl.textContent = "Error: " + e.message;
+  }
+}
+</script>
+
+</body>
+</html>
